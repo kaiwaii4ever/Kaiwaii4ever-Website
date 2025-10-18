@@ -7,7 +7,6 @@ import {
   Button,
   IconButton,
   alpha,
-  useTheme,
 } from '@mui/material';
 import {
   Home as HomeIcon,
