@@ -23,6 +23,7 @@ const app = express();
 app.use(express.json());
 app.use(logger);
 app.use(cors({ origin: 'https://kaiwaii4ever.win' }));
+app.use(cors({ origin: 'http://localhost:5173' }));
 
 app.get('/', (req, res) => res.send('Backend is running'));
 
