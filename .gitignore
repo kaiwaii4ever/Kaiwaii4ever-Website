@@ -1,0 +1,34 @@
+# === Node Dependencies ===
+node_modules/
+Client/node_modules/
+Server/node_modules/
+
+# === Build Artifacts ===
+dist/
+Client/dist/
+Server/dist/
+build/
+out/
+
+# === Lock Files ===
+package-lock.json
+Server/package-lock.json
+Server/Website-API/package-lock.json
+
+# === Environment Files ===
+.env
+.env.*
+
+# === Logs ===
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# === OS Files ===
+.DS_Store
+Thumbs.db
+
+# === Editor Settings ===
+.vscode/
+.idea/
