@@ -128,8 +128,8 @@ const ProfileViewPage: React.FC = () => {
       try {
         const token = localStorage.getItem('token') || sessionStorage.getItem('token');
         const url = username
-          ? `https://api.kaiwaii4ever.win/api/userdata/${username}`
-          : 'https://api.kaiwaii4ever.win/api/userdata';
+          ? `https://api.kaiwaii4ever.win/api/user/${username}`
+          : 'https://api.kaiwaii4ever.win/api/user';
 
         const response = await fetch(url, {
           headers: { Authorization: `Bearer ${token}` },

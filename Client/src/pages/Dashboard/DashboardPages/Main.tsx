@@ -152,7 +152,7 @@ const Dashboard: React.FC = () => {
       }
 
       try {
-        const response = await fetch('https://api.kaiwaii4ever.win/api/userdata', {
+        const response = await fetch('https://api.kaiwaii4ever.win/api/user', {
           headers: { Authorization: `Bearer ${token}` },
         });
 

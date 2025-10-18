@@ -7,6 +7,7 @@ const logger = require('./utils/logger');
 const authenticateToken = require('./services/authenticateToken');
 
 const playerRoutes = require('./routes/player');
+const RobloxplayerRouter = require('./routes/UserID');
 const dataDumpRoutes = require('./routes/dataDump');
 const userRoutes = require('./routes/user');
 const authRoutes = require('./routes/auth');
@@ -46,6 +47,7 @@ app.use(
 app.get('/', (req, res) => res.send('Backend is running'));
 
 app.use('/api/player', playerRoutes);
+app.use('/api/roblox/player', RobloxplayerRouter);
 app.use('/api/minecraft/pyksmp', minecraftRoutes);
 
 app.use('/api/auth', authRoutes);

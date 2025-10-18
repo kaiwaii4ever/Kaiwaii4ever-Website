@@ -131,7 +131,7 @@ const SettingsPage: React.FC = () => {
     async function fetchProfile() {
       try {
         const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-        const response = await fetch('https://api.kaiwaii4ever.win/api/userdata', {
+        const response = await fetch('https://api.kaiwaii4ever.win/api/user', {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await response.json();
