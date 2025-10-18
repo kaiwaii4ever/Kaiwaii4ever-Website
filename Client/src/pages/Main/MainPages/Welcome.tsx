@@ -30,7 +30,7 @@ const HeroContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-const ContentBox = styled(Box)(({ theme }) => ({
+const ContentBox = styled(Box)(({ }) => ({
   textAlign: 'center',
   zIndex: 1,
   position: 'relative',

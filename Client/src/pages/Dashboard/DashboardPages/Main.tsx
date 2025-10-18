@@ -6,7 +6,6 @@ import {
   Grid,
   alpha,
   Skeleton,
-  useTheme,
 } from '@mui/material';
 import {
   TrendingUp as TrendingUpIcon,
@@ -128,7 +127,6 @@ const WelcomeHeader = styled(Box)(({ theme }) => ({
 }));
 
 const Dashboard: React.FC = () => {
-  const theme = useTheme();
   const [currentTime, setCurrentTime] = useState(new Date());
   const [stats, setStats] = useState<Stats>({
     activePlayers: 'Loading...',

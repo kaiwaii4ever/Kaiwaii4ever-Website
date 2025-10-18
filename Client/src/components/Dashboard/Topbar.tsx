@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   AppBar,
   Toolbar,
@@ -84,7 +84,6 @@ interface TopbarProps {
 
 const Topbar: React.FC<TopbarProps> = ({ onThemeToggle, isDarkMode }) => {
   const navigate = useNavigate();
-  const theme = useTheme();
 
   const handleNavigate = () => {
     navigate('/');

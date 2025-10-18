@@ -85,7 +85,7 @@ const StyledAvatar = styled(Avatar)(({ theme }) => ({
     : '0 8px 24px rgba(37, 99, 235, 0.2)',
 }));
 
-const ActionButton = styled(Button)(({ theme }) => ({
+const ActionButton = styled(Button)(({ }) => ({
   textTransform: 'none',
   fontWeight: 600,
   borderRadius: 8,

@@ -34,7 +34,7 @@ interface AppBarProps {
   isDarkMode?: boolean;
   logo?: string;
 }
-const StyledAppBar = styled(AppBar)(({ theme }) => ({
+const StyledAppBar = styled(AppBar)(({ }) => ({
   position: 'fixed',
   backgroundColor: 'transparent',
   boxShadow: 'none',
