@@ -116,7 +116,7 @@ const PlayerStore: React.FC = () => {
   const [loadingDetails, setLoadingDetails] = useState(false);
 
   useEffect(() => {
-    fetch("https://api.kaiwaii4ever.win/api/user", { cache: "no-store" })
+    fetch("https://api.kaiwaii4ever.win/api/roblox/player", { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
         if (data.success && Array.isArray(data.players)) {
