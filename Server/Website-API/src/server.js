@@ -17,6 +17,8 @@ const minecraftRoutes = require('./routes/minecraftstop');
 
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
+} else {
+  dotenv.config();
 }
 
 const allowedOrigins = [

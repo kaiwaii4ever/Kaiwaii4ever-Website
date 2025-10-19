@@ -12,6 +12,7 @@ module.exports = async function authenticateToken(req, res, next) {
     if (!user) return res.sendStatus(403);
 
     req.user = {
+      _id: user._id,
       displayName: user.Display_Name,
       role: user.Role,
       email: user.Email,
@@ -20,6 +21,7 @@ module.exports = async function authenticateToken(req, res, next) {
       pronouns: user.Pronouns || "",
       DOB: user.DOB || "",
       phone: user.Phone_Number || "",
+      bio: user.Bio || "",
     };
 
     next();
