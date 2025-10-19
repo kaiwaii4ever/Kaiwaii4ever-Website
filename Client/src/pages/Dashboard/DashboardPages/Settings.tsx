@@ -153,7 +153,6 @@ const SettingsPage: React.FC = () => {
   const [saving, setSaving] = useState(false);
 
   // Dialog states
-  const [usernameDialog, setUsernameDialog] = useState(false);
   const [emailDialog, setEmailDialog] = useState(false);
   const [phoneDialog, setPhoneDialog] = useState(false);
   const [passwordDialog, setPasswordDialog] = useState(false);
@@ -161,7 +160,6 @@ const SettingsPage: React.FC = () => {
   const [forgotDialog, setForgotDialog] = useState(false);
 
   // Form states
-  const [newUsername, setNewUsername] = useState('');
   const [newEmail, setNewEmail] = useState('');
   const [newPhone, setNewPhone] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
