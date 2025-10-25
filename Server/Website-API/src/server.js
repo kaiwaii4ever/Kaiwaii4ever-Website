@@ -14,6 +14,7 @@ const authRoutes = require('./routes/auth');
 const dashboardRoutes = require('./routes/dashboard');
 const banCheckRoutes = require('./routes/banCheck');
 const minecraftRoutes = require('./routes/minecraftstop');
+const robloxAssetsRoutes = require('./routes/RobloxAssets');
 
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
@@ -50,6 +51,7 @@ app.get('/', (req, res) => res.send('Backend is running'));
 
 app.use('/api/player', playerRoutes);
 app.use('/api/roblox/player', RobloxplayerRouter);
+app.use('/api/roblox/assets', robloxAssetsRoutes);
 app.use('/api/minecraft/pyksmp', minecraftRoutes);
 
 app.use('/api/auth', authRoutes);
