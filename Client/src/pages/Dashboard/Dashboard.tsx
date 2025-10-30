@@ -1,5 +1,5 @@
 import { Box, CssBaseline } from "@mui/material";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import Sidebar from "../../components/Dashboard/Sidebar";
 import Topbar from "../../components/Dashboard/Topbar";
@@ -29,6 +29,7 @@ export default function DashboardPage() {
           <Route path="/" element={<Main />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/profile/:username" element={<Profile />} />
+          <Route path="/profile" element={<Navigate to="/dashboard" replace />} />
 
           <Route path="YATB/documented-users" element={<YATBDocUser />} />
           <Route path="YATB/player-store" element={<YATBPlayerStore />} />
