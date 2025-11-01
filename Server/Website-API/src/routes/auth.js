@@ -9,8 +9,25 @@ router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    const user = await User.findOne({ 'auth.0': username });
-    if (!user || user.auth[1] !== password) {
+    // Explicitly select Password for verification
+    const user = await User.findOne({ 'auth.0': username }).select('+Password');
+    if (!user) {
+      return res.status(401).json({ success: false, message: 'Invalid credentials' });
+    }
+
+    // Support legacy plaintext password in auth[1] temporarily, but prefer hashed Password
+    let valid = false;
+    if (user.Password) {
+      // Use argon2 verification through model method if present
+      if (typeof user.verifyPassword === 'function') {
+        valid = await user.verifyPassword(password);
+      }
+    } else if (user.auth && user.auth[1]) {
+      // Fallback legacy check (not secure) - recommend removing after migration
+      valid = user.auth[1] === password;
+    }
+
+    if (!valid) {
       return res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
 

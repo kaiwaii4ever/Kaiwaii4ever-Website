@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const bcrypt = require('bcrypt');
+const { hash, verify, ArgonType } = require('@node-rs/argon2');
 
 exports.getUserProfile = async (req, res) => {
   try {
@@ -170,12 +170,16 @@ exports.updateEmail = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Password verification required' });
     }
 
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).select('+Password');
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
 
-    const isValidPassword = await bcrypt.compare(password, user.Password);
+    if (!user.Password) {
+      return res.status(401).json({ success: false, message: 'Incorrect password' });
+    }
+
+    const isValidPassword = await verify(user.Password, password);
     if (!isValidPassword) {
       return res.status(401).json({ success: false, message: 'Incorrect password' });
     }
@@ -222,12 +226,16 @@ exports.updatePhone = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Password verification required' });
     }
 
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).select('+Password');
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
 
-    const isValidPassword = await bcrypt.compare(password, user.Password);
+    if (!user.Password) {
+      return res.status(401).json({ success: false, message: 'Incorrect password' });
+    }
+
+    const isValidPassword = await verify(user.Password, password);
     if (!isValidPassword) {
       return res.status(401).json({ success: false, message: 'Incorrect password' });
     }
@@ -264,25 +272,21 @@ exports.updatePassword = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Password must be at least 8 characters' });
     }
 
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).select('+Password');
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
 
-    // Check if user has a password field
     if (!user.Password) {
       return res.status(400).json({ success: false, message: 'Password not set for this account' });
     }
 
-    // Verify current password
-    const isValidPassword = await bcrypt.compare(currentPassword, user.Password);
+    const isValidPassword = await verify(user.Password, currentPassword);
     if (!isValidPassword) {
       return res.status(401).json({ success: false, message: 'Current password is incorrect' });
     }
 
-    // Hash new password
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+    const hashedPassword = await hash(newPassword, { type: ArgonType.Argon2id });
 
     await User.findByIdAndUpdate(userId, { $set: { Password: hashedPassword } });
 
