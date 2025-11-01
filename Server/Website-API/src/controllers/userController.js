@@ -272,23 +272,31 @@ exports.updatePassword = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Password must be at least 8 characters' });
     }
 
-    const user = await User.findById(userId).select('+Password');
+    const user = await User.findById(userId).select('+Password auth');
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
 
-    if (!user.Password) {
-      return res.status(400).json({ success: false, message: 'Password not set for this account' });
+    let isValidPassword = false;
+
+    if (user.Password) {
+      isValidPassword = await verify(user.Password, currentPassword);
+    } else if (user.auth && user.auth[1]) {
+      isValidPassword = user.auth[1] === currentPassword;
     }
 
-    const isValidPassword = await verify(user.Password, currentPassword);
     if (!isValidPassword) {
       return res.status(401).json({ success: false, message: 'Current password is incorrect' });
     }
 
     const hashedPassword = await hash(newPassword, { type: ArgonType.Argon2id });
 
-    await User.findByIdAndUpdate(userId, { $set: { Password: hashedPassword } });
+    const updateData = { Password: hashedPassword };
+    if (user.auth && user.auth[1]) {
+      updateData['auth.1'] = undefined;
+    }
+
+    await User.findByIdAndUpdate(userId, { $set: updateData });
 
     res.json({ success: true, message: 'Password updated successfully' });
   } catch (error) {
